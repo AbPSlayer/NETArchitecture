@@ -7,26 +7,33 @@ using System.Threading.Tasks;
 
 namespace NETArchiteture.Services
 {
-    public class LoanService
+    public class LoanService : ILoanService
     {
+        
+        private readonly ILoanDataAccess loanDataAccess;
 
+        public LoanService(ILoanDataAccess loanDataAccess)
+        {
+        
+            this.loanDataAccess = loanDataAccess;
+        }
         public LoanIndexGetViewModel Get(decimal loanNUmber)
         {
-            var loanDataAccess = new LoanDataAccess();
+            
 
             var loanDataModel = loanDataAccess.GetInfo(loanNUmber);
 
             var propertyDataModel = loanDataAccess.GetPropertyInfo(loanNUmber);
 
 
-            var loanViewModel = new LoanIndexGetViewModel();
-
-
-            loanViewModel.BorrowerName = loanDataModel.BorrowerName;
-            loanViewModel.Address = loanDataModel.Street01 + loanDataModel.Street02;
-            loanViewModel.LoanNumber = loanDataModel.LoanNumber;
-            loanViewModel.PropertyAddress = propertyDataModel.Street01 + propertyDataModel.Street02;
-            loanViewModel.PropertyValue = propertyDataModel.PropertyValue;
+            var loanViewModel = new LoanIndexGetViewModel
+            {
+                BorrowerName = loanDataModel.BorrowerName,
+                Address = loanDataModel.Street01 + loanDataModel.Street02,
+                LoanNumber = loanDataModel.LoanNumber,
+                PropertyAddress = propertyDataModel.Street01 + propertyDataModel.Street02,
+                PropertyValue = propertyDataModel.PropertyValue
+            };
 
             return loanViewModel;
 
@@ -36,7 +43,7 @@ namespace NETArchiteture.Services
 
         public void Save(LoanIndexPostViewModel input)
         {
-            var loanDataAccess = new LoanDataAccess();
+            
 
             loanDataAccess.SaveBorrowerInfo(new DataAccess.DataModels.LoanBorrowerInputDataModel()
             {

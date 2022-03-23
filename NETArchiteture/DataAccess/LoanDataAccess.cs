@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NETArchiteture.DataAccess
 {
-    public class LoanDataAccess
+    public class LoanDataAccess : ILoanDataAccess
     {
 
         public LoanInfoDataModel GetInfo(decimal loanNumber)
@@ -21,7 +21,8 @@ namespace NETArchiteture.DataAccess
 
         }
 
-        public LoanPropertyInfoDataModel GetPropertyInfo(decimal loanNumber) {
+        public LoanPropertyInfoDataModel GetPropertyInfo(decimal loanNumber)
+        {
 
             return new LoanPropertyInfoDataModel()
             {
@@ -34,9 +35,9 @@ namespace NETArchiteture.DataAccess
 
 
         public void SaveBorrowerInfo(LoanBorrowerInputDataModel input)
-        { 
-        
-        //call sp
+        {
+
+            //call sp
 
         }
     }

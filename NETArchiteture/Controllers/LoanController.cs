@@ -10,12 +10,18 @@ namespace NETArchiteture.Controllers
 {
     public class LoanController : Controller
     {
+        private readonly ILoanService loanService;
+
+        public LoanController(ILoanService loanService)
+        {
+            this.loanService = loanService;
+        }
         [HttpGet]
         public IActionResult Index(decimal loanNumber)
         {
 
-            var svc = new LoanService();
-            var vm = svc.Get(loanNumber);
+            
+            var vm = loanService.Get(loanNumber);
 
             
 
@@ -33,8 +39,8 @@ namespace NETArchiteture.Controllers
 
             if (ModelState.IsValid)
             {
-                var svc = new LoanService();
-                svc.Save(input);
+                
+                loanService.Save(input);
             }
             return View();
         }
